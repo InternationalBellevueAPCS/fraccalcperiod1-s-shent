@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class FracCalc {
 
     /**
@@ -8,7 +10,11 @@ public class FracCalc {
     {
         // TODO: Read the input from the user and call produceAnswer with an equation
         // Checkpoint 1: Create a Scanner, read one line of input, pass that input to produceAnswer, print the result.
-        // Checkpoint 2: Accept user input multiple times.
+        // Checkpoint 2: Accept user input multiple times
+    	Scanner console = new Scanner(System.in);
+    	System.out.print("Enter a fraction problem: ");
+    	String input = console.nextLine();
+    	System.out.println(produceAnswer(input));
     }
     
     /**
@@ -19,7 +25,8 @@ public class FracCalc {
      *      Example: return ==> "1_1/4"
      */
     public static String produceAnswer(String input)
-    { 
+    {
+    	int spaceCount = 0;
         // TODO: Implement this function to produce the solution to the input
         // Checkpoint 1: Return the second operand.  Example "4/5 * 1_2/4" returns "1_2/4".
         // Checkpoint 2: Return the second operand as a string representing each part.
@@ -29,7 +36,14 @@ public class FracCalc {
         //               Note: Answer does not need to be reduced, but it must be correct.
         // Final project: All answers must be reduced.
         //               Example "4/5 * 1_2/4" returns "1_1/5".
-        
+        for (int i = 0; i < input.length() - 1; i++) {
+        	if (input.charAt(i) == ' ') {
+        		spaceCount++;
+        	}
+        	if (spaceCount == 2) {
+        		return input.substring(i + 1);
+        	}
+        }
         return "";
     }
 
