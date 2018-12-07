@@ -12,9 +12,16 @@ public class FracCalc {
         // Checkpoint 1: Create a Scanner, read one line of input, pass that input to produceAnswer, print the result.
         // Checkpoint 2: Accept user input multiple times
     	Scanner console = new Scanner(System.in);
-    	System.out.print("Enter a fraction problem: ");
-    	String input = console.nextLine();
-    	System.out.println(produceAnswer(input));
+    	String input = "";
+    	
+    	while (!input.equalsIgnoreCase("quit")) {
+    		System.out.print("Enter a fraction problem (\"quit\" to stop): ");
+    		input = console.nextLine();
+    		if (input.equalsIgnoreCase("quit")) {
+    			break;
+    		}
+    		System.out.println(produceAnswer(input));
+    	}
     }
     
     /**
@@ -26,7 +33,6 @@ public class FracCalc {
      */
     public static String produceAnswer(String input)
     {
-    	int spaceCount = 0;
         // TODO: Implement this function to produce the solution to the input
         // Checkpoint 1: Return the second operand.  Example "4/5 * 1_2/4" returns "1_2/4".
         // Checkpoint 2: Return the second operand as a string representing each part.
@@ -36,15 +42,41 @@ public class FracCalc {
         //               Note: Answer does not need to be reduced, but it must be correct.
         // Final project: All answers must be reduced.
         //               Example "4/5 * 1_2/4" returns "1_1/5".
+    	
+    	//Variable declaration
+    	int spaceCount = 0;
+    	String secondOperand = "0";
+    	String secondWhole = "0";
+    	String secondNum = "0";
+    	String secondDen = "0";
+    	//Goes through input and identifies second operand
         for (int i = 0; i < input.length() - 1; i++) {
         	if (input.charAt(i) == ' ') {
         		spaceCount++;
         	}
         	if (spaceCount == 2) {
-        		return input.substring(i + 1);
+        		secondOperand = input.substring(i + 1);
+        		spaceCount = 0;
+        		}
+        	}
+        
+        //Goes trough second operand and breaks it up
+        for (int i = 0; i < secondOperand.length(); i++) {
+        	if (secondOperand.charAt(i) == '_') {
+        		secondWhole = secondOperand.substring(0, i);
+        	}
+        	if (secondOperand.charAt(i) == '/') {
+        		secondNum = secondOperand.substring(secondOperand.indexOf('_') + 1, i);
+        		secondDen = secondOperand.substring(secondOperand.indexOf('/') + 1);
         	}
         }
-        return "";
+        
+        //Sets up for special cases of the second operand
+        if (secondNum.equals("0")) {
+        	secondWhole = secondOperand;
+        	secondDen = "1";
+        }
+        return "whole:" + secondWhole + " numerator:" + secondNum + " denominator:" + secondDen;
     }
 
     // TODO: Fill in the space below with helper methods
