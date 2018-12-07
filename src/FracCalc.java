@@ -11,12 +11,23 @@ public class FracCalc {
         // TODO: Read the input from the user and call produceAnswer with an equation
         // Checkpoint 1: Create a Scanner, read one line of input, pass that input to produceAnswer, print the result.
         // Checkpoint 2: Accept user input multiple times
+    	
+    	//Prints instructions for use
+    	System.out.println("Instructions:");
+    	System.out.println("1. Enter your values like: 15 or 2_3/4");
+    	System.out.println("2. Put a space on either side of the operand");
+    	
+    	System.out.println();
+    	//Creates a scanner for input
     	Scanner console = new Scanner(System.in);
     	String input = "";
     	
+    	//Loops for multiple input
     	while (!input.equalsIgnoreCase("quit")) {
     		System.out.print("Enter a fraction problem (\"quit\" to stop): ");
     		input = console.nextLine();
+    		
+    		//Sentinel value to quit program
     		if (input.equalsIgnoreCase("quit")) {
     			break;
     		}
@@ -49,11 +60,13 @@ public class FracCalc {
     	String secondWhole = "0";
     	String secondNum = "0";
     	String secondDen = "0";
+    	
     	//Goes through input and identifies second operand
         for (int i = 0; i < input.length() - 1; i++) {
         	if (input.charAt(i) == ' ') {
         		spaceCount++;
         	}
+        	//Puts the second operand into a second string
         	if (spaceCount == 2) {
         		secondOperand = input.substring(i + 1);
         		spaceCount = 0;
